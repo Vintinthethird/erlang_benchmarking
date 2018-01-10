@@ -3,8 +3,8 @@
 
 list_all() ->
     TestNum = [1,10,100,1000,10000,50000,100000,500000,1000000,500000,1000000, 5000000, 10000000],
-    FunList = [fun list_delete/1, fun list_sort/1],
-    FunList2 = lists:map(fun(Func) -> {erlang:fun_info(Func,name), lists:map(fun (Num) -> {Num, Func(Num)} end, TestNum)} end,FunList),
+    FunList = [list_delete, list_sort],
+    FunList2 = lists:map(fun(Func) -> {Func, lists:map(fun (Num) -> {Num, erlang:apply(list,Func,[Num])} end, TestNum)} end, FunList),
     FunList2.
 
 list_delete(N) ->
